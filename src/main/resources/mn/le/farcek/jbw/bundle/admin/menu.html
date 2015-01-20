@@ -1,0 +1,48 @@
+{% macro adminMenu(selected) %}
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Panel heading</div>
+    <div class="panel-body">
+        <p>
+            
+        </p>
+    </div>
+
+    <!-- List group -->
+    <ul class="list-group">
+        {% for it in 'mn.le.farcek.jbw.bundle.admin.JBWAdminMenuManager' | fromInjector  %}
+        {{adminMenuItem(selected,it)}}
+        {% endfor%}
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            Action <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro adminMenuItem(selected, item) %}
+<li class="{{selected is regexTest('^'+item.path+'.*$') ? 'active':''}}">
+    <a href="{{item.url | href}}">{{item.name | message}}</a>
+    {% if item.empty == false%}
+    <ul>
+        {% for it in item.values%}
+        {{adminMenuItem(selected,it)}}
+        {% endfor%}
+    </ul>
+</li>
+{% endif%}
+{% endmacro %}
